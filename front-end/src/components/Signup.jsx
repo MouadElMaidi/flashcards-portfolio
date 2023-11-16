@@ -1,0 +1,103 @@
+import { IoCloseSharp } from "react-icons/io5";
+import { useSelector, useDispatch } from "react-redux";
+import axios from "axios";
+
+import { uiActions } from "../features/ui/ui-slice";
+import { useState } from "react";
+import { registerUser } from "../features/user/auth-slice";
+
+const Signup = () => {
+  const dispatch = useDispatch();
+  const [loginInfo, setLoginInfo] = useState({
+    username: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
+  });
+
+  const closeSignupHandler = () => {
+    dispatch(uiActions.hideSignup());
+  };
+
+  const inputChangeHandler = (e) => {
+    const { name, value } = e.target;
+    setLoginInfo((prevInfo) => {
+      return { ...prevInfo, [name]: value };
+    });
+  };
+
+  const signupUser = (e) => {
+    e.preventDefault();
+    dispatch(
+      registerUser({
+        username: loginInfo.username,
+        email: loginInfo.email,
+        password: loginInfo.password,
+      })
+    );
+  };
+
+  return (
+    <>
+      <div
+        className="absolute left-0 top-0 w-full h-screen z-20 bg-white/75"
+        onClick={closeSignupHandler}
+      ></div>
+      <section
+        className="w-[40rem] fixed top-20  bg-white px-12 py-8 rounded-xl shadow-lg z-30"
+        style={{ left: "calc(50% - 20rem)" }}
+      >
+        <header className="flex justify-between">
+          <h2 className="text-4xl font-semibold">Sign up</h2>
+          <button onClick={closeSignupHandler}>
+            <IoCloseSharp className="text-4xl" />
+          </button>
+        </header>
+
+        <hr className="my-4" />
+        <form>
+          <input
+            type="text"
+            placeholder="Username"
+            className="block w-full text-xl p-4 border-2 rounded-lg mb-4"
+            name="username"
+            value={loginInfo.username}
+            onChange={inputChangeHandler}
+          />
+          <input
+            type="email"
+            placeholder="Email address"
+            className="block w-full text-xl p-4 border-2 rounded-lg mb-4"
+            name="email"
+            value={loginInfo.email}
+            onChange={inputChangeHandler}
+          />
+          <input
+            type="password"
+            placeholder="Password"
+            className="block w-full text-xl p-4 border-2 rounded-lg mb-4"
+            name="password"
+            value={loginInfo.password}
+            onChange={inputChangeHandler}
+          />
+          <input
+            type="password"
+            placeholder="Confirm password"
+            className="block w-full text-xl p-4 border-2 rounded-lg mb-4"
+            name="confirmPassword"
+            value={loginInfo.confirmPassword}
+            onChange={inputChangeHandler}
+          />
+          <button
+            onClick={signupUser}
+            className="text-2xl bg-green-500 text-white py-4 px-12 font-bold rounded-lg block mx-auto mt-7"
+          >
+            Sign up
+          </button>
+        </form>
+      </section>
+    </>
+  );
+};
+
+export default Signup;
