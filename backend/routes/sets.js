@@ -1,4 +1,5 @@
 const express = require("express");
+const { body } = require("express-validator");
 
 const setsController = require("../controllers/sets");
 const isAuth = require("../middleware/is-auth");
@@ -12,7 +13,12 @@ router.get("/", isAuth, setsController.getSets);
 router.get("/:setId", isAuth, setsController.getSet);
 
 // POST /sets/new-set
-router.post("/new-set", isAuth, setsController.createSet);
+router.post(
+  "/new-set",
+  isAuth,
+  [body("title").trim().not().isEmpty()],
+  setsController.createSet
+);
 
 // PUT /sets/edit-set/:setId
 router.put("/edit-set/:setId", isAuth, setsController.updateSet);

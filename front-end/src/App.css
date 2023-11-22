@@ -1,3 +1,19 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+  button,
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  a {
+    @apply text-slate-700;
+  }
+
+  body {
+    @apply bg-sky-50;
+  }
+}

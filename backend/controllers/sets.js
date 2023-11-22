@@ -1,3 +1,5 @@
+const { validationResult } = require("express-validator");
+
 const Set = require("../models/set");
 const Card = require("../models/card");
 const User = require("../models/user");
@@ -64,6 +66,12 @@ exports.getSet = async (req, res, next) => {
 };
 
 exports.createSet = async (req, res, next) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    const error = new Error("Validation failed, entered data is incorrect.");
+    error.statusCode = 422;
+    return next(error);
+  }
   const title = req.body.title;
   const description = req.body.description;
   const cards = req.body.cards;

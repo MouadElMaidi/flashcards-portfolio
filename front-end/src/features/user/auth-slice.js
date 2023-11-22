@@ -11,14 +11,14 @@ export const registerUser = createAsyncThunk(
   "auth/registerUser",
   async (user, thunkApi) => {
     return registerUserThunk("/auth/signup", user, thunkApi);
-  }
+  },
 );
 
 export const loginUser = createAsyncThunk(
   "auth/loginUser",
   async (user, thunkApi) => {
     return loginUserThunk("/auth/login", user, thunkApi);
-  }
+  },
 );
 
 const authSlice = createSlice({
@@ -27,7 +27,12 @@ const authSlice = createSlice({
     isLoading: false,
     user: getUserFromLocalStorage(),
   },
-  reducers: {},
+  reducers: {
+    logoutUser: (state, { payload }) => {
+      state.user = null;
+      removeUserFromLocalStorage();
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(registerUser.pending, (state) => {
