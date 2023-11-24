@@ -13,6 +13,10 @@
     @apply text-slate-700;
   }
 
+  p {
+    @apply text-slate-800;
+  }
+
   body {
     @apply bg-sky-50;
   }

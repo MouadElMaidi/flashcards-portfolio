@@ -46,7 +46,10 @@ exports.getSet = async (req, res, next) => {
       throw error;
     }
 
-    const sets = await user.getSets({ where: { id: setId } });
+    const sets = await user.getSets({
+      where: { id: setId },
+      include: [{ model: Card }],
+    });
 
     if (!sets) {
       const error = new Error("Could not find set.");

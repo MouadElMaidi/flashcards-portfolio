@@ -27,7 +27,7 @@ const MainNavigation = () => {
               </NavLink>
             </li>
             <li className="ml-8">
-              <NavLink to="/sets" className="text-base font-semibold">
+              <NavLink to="/collections" className="text-base font-semibold">
                 You library
               </NavLink>
             </li>

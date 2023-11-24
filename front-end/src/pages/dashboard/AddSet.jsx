@@ -1,16 +1,18 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 import CardRows from "../../components/CardRows";
 import { collectionActions } from "../../features/collection/collection-slice";
 import { createCollection } from "../../features/collection/collection-slice";
 
 const AddSet = () => {
-  const { title, description, cards, isLoading } = useSelector(
+  const { title, description, cards, isLoading, newlyCreatedId } = useSelector(
     (state) => state.collection,
   );
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const inputChangeHandler = (e) => {
     const { name, value } = e.target;
@@ -21,6 +23,13 @@ const AddSet = () => {
     e.preventDefault();
     dispatch(createCollection({ title, description, cards }));
   };
+
+  useEffect(() => {
+    dispatch(collectionActions.clearForm());
+    if (newlyCreatedId) {
+      navigate(`/collection/${newlyCreatedId}`);
+    }
+  }, [newlyCreatedId]);
 
   return (
     <section className="mb-12 mt-16 w-full px-12 py-12">

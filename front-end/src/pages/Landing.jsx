@@ -45,8 +45,63 @@ const landing = () => {
   }, [user]);
 
   return (
-    <main className="bg-slate-100">
-      <section className="container mx-auto grid h-screen grid-cols-2 place-items-center gap-x-6 px-24">
+    <main>
+      <div className="mx-auto h-screen  w-full max-w-lg  px-4 py-8 md:grid md:max-w-6xl md:grid-cols-2 md:place-items-center md:gap-x-6 md:px-12">
+        <div className="mb-8 text-center md:text-left">
+          <h1 className="mb-4 text-3xl font-bold text-cyan-600 md:text-4xl lg:mb-6 lg:text-6xl">
+            QuizMe
+          </h1>
+          <p className="text-lg font-medium leading-snug lg:text-2xl">
+            Welcome to QuizMe - where you ace your classes with ease!
+          </p>
+        </div>
+        <div className="md:w-full">
+          <form>
+            {error && <p>{error}</p>}
+            <input
+              type="email"
+              placeholder="Email address."
+              name="email"
+              value={emailInput}
+              onChange={emailChangeHandler}
+              className="mb-2 block w-full rounded-lg border p-2 text-base lg:p-4 lg:text-lg"
+            />
+            <input
+              type="password"
+              placeholder="Password"
+              name="password"
+              value={passwordInput}
+              onChange={passwordChangeHandler}
+              className="mb-4 block w-full rounded-lg border p-2 text-base lg:p-4 lg:text-lg"
+            />
+            <button
+              type="submit"
+              onClick={loginHandler}
+              className="w-full rounded-lg bg-cyan-700 p-2 text-base font-semibold text-white lg:p-4 lg:text-xl"
+            >
+              Log in
+            </button>
+          </form>
+          <hr className="my-7 border-slate-300" />
+          <button
+            type="button"
+            onClick={signupHandler}
+            className="mx-auto block rounded-lg bg-teal-500 px-8 py-2 text-base font-semibold text-white lg:p-4 lg:text-xl"
+          >
+            Create a new account
+          </button>
+        </div>
+      </div>
+      {signupIsVisible && <Signup />}
+    </main>
+  );
+};
+
+export default landing;
+
+/*
+    <main>
+      <div className="container mx-auto grid h-screen grid-cols-2 place-items-center gap-x-6 px-24">
         <article>
           <h1 className="mb-6 text-6xl font-semibold">QuizMe</h1>
           <p className="text-2xl leading-snug">
@@ -91,52 +146,7 @@ const landing = () => {
             </button>
           </div>
         </article>
-      </section>
+      </div>
       {signupIsVisible && <Signup />}
-    </main>
-  );
-};
-
-export default landing;
-
-/*
-<main className="bg-slate-100">
-      <section className="container mx-auto grid grid-cols-2 place-items-center gap-x-16 h-screen">
-        <article>
-          <h1 className="text-8xl mb-6 font-semibold">QuizMe</h1>
-          <p className="text-3xl leading-snug">
-            Welcome to QuizMe - where you ace your classes with ease!
-          </p>
-        </article>
-        <article className="w-10/12">
-          <div className="bg-white px-8 py-8 rounded-xl shadow-lg">
-            <form>
-              <input
-                type="email"
-                placeholder="Email address."
-                className="block w-full text-2xl p-5 border-2 rounded-lg mb-4"
-              />
-              <input
-                type="password"
-                placeholder="Password"
-                className="block w-full text-2xl p-5 border-2 rounded-lg mb-6"
-              />
-              <button
-                type="submit"
-                className="w-full text-2xl bg-purple-700 text-white p-4 font-bold rounded-lg "
-              >
-                Log in
-              </button>
-            </form>
-            <hr className="my-7" />
-            <button
-              type="button"
-              className="text-2xl bg-green-500 text-white py-4 px-8 font-bold rounded-lg block mx-auto"
-            >
-              Create a new account
-            </button>
-          </div>
-        </article>
-      </section>
     </main>
 */
